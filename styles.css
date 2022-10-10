@@ -1,0 +1,12 @@
+
+* {
+    font-family: 'Consolas';
+}
+
+body {
+    background-color: darkslategray;
+}
+
+label {
+    color: white;
+}
