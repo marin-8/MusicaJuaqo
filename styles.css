@@ -10,3 +10,15 @@ body {
 label {
     color: white;
 }
+
+input[type=range][orient=vertical]
+{
+    -webkit-appearance: slider-vertical; /* Chromium */
+    width: 8px;
+    height: 200px;
+    padding: 0 5px;
+}
+
+option {
+    color: white;
+}

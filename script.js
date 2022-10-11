@@ -8,6 +8,7 @@ let x;
 let minFrq;
 let maxFrq;
 let waveType;
+let frecuencias;
 
 function playStop()
 {
@@ -37,6 +38,15 @@ function playStop()
         let bpm = document.getElementById("BPM").value;
         time = 60000/bpm;
         waveType = document.getElementById("waveType").value;
+
+        frecuencias = [];
+        for (let i = 0; i < 11; i++) {
+            let id = "i"+ (i < 10 ? "0" : "") + i.toString();
+            let rawValue = document.getElementById(id).value / 100;
+            let actualValue = (maxFrq - minFrq) * rawValue + minFrq;
+            frecuencias.push(actualValue);
+        }
+
         intervalHandler = setInterval(algoritmo, time);
 
         btn_playStop.innerHTML = "Stop";
@@ -45,8 +55,18 @@ function playStop()
     playing = !playing;
 }
 
-function algoritmo()
+function algoritmo ()
 {
-    playTone(x*(maxFrq-minFrq)+minFrq, waveType, time/1000)
+    let indiceMenor = parseInt(x*10);
+    let frecuenciaMenor = Math.min(frecuencias[indiceMenor], frecuencias[indiceMenor+1]);
+    let frecuenciaMayor = Math.max(frecuencias[indiceMenor], frecuencias[indiceMenor+1]);
+    let frecuencia = parseInt((frecuenciaMayor - frecuenciaMenor) * (x*10-Math.floor(x*10)) + frecuenciaMenor);
+    playTone(frecuencia, waveType, time/1000)
     x = r*x*(1-x);
+}
+
+function roundSpecific (number, decimals)
+{
+    let power = Math.pow(10,decimals);
+    return Math.round(number * power) / power
 }
