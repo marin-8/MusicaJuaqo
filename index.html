@@ -1,68 +1,83 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Ecuación logística</title>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="libs/Chart.js"></script>
-    <script src="libs/jquery.min.js"></script>
-    <script src="libs/simpleTones.js"></script>
+        <title>Ecuación logística</title>
 
-    <script src="script.js" defer></script>
-    
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body style="margin-left:2em">
-    <br>
-    <label for="R">&nbsp;R (0-4) (0.001):</label>
-    <input id="R" type="number" min="0" max="4" step="0.001" value="3.832">
-    <br>
-    <label for="X0">X0 (0-1) (0.001):</label>
-    <input id="X0" type="number" min="0" max="4" step="0.001" value="0.967">
-    <br><br><br>
-    <label for="minFrq">minFrq (20-20000) (1):</label>
-    <input id="minFrq" type="number" min="20" max="20000" step="1" value="400">
-    <br>
-    <label for="maxFrq">maxFrq (20-20000) (1):</label>
-    <input id="maxFrq" type="number" min="20" max="20000" step="1" value="800">
-    <br>
-    <label for="BPM">BPM &nbsp;&nbsp;&nbsp;(60-360)&nbsp;&nbsp; (1):</label>
-    <input id="BPM" type="number" min="60" max="360" step="1" value="200">
-    <br>
-    <label for="waveType">wave type &nbsp;&nbsp;(options):</label>
-    <select id="waveType">
-        <option value="sine">Sine</option>
-        <option value="square">Square</option>
-        <option value="sawtooth">Sawtooth</option>
-        <option value="triangle">Triangle</option>
-    </select>
-    <br><br>
-    <label>X to Frequency map (minFrq-maxFrq Hz):</label>
-    <br><br>
-    <datalist id="marcas">
-        <option value="100">
-        <option value="75">
-        <option value="50">
-        <option value="24">
-        <option value="0">
-    </datalist>
-    <input id="i00" style="margin-left:0.3em" type="range" min="0" max="100" step="1" orient="vertical" list="marcas" />
-    <input id="i01" style="margin-left:1.8em" type="range" min="0" max="100" step="1" orient="vertical" list="marcas" />
-    <input id="i02" style="margin-left:1.8em" type="range" min="0" max="100" step="1" orient="vertical" list="marcas" />
-    <input id="i03" style="margin-left:1.8em" type="range" min="0" max="100" step="1" orient="vertical" list="marcas" />
-    <input id="i04" style="margin-left:1.8em" type="range" min="0" max="100" step="1" orient="vertical" list="marcas" />
-    <input id="i05" style="margin-left:1.8em" type="range" min="0" max="100" step="1" orient="vertical" list="marcas" />
-    <input id="i06" style="margin-left:1.8em" type="range" min="0" max="100" step="1" orient="vertical" list="marcas" />
-    <input id="i07" style="margin-left:1.8em" type="range" min="0" max="100" step="1" orient="vertical" list="marcas" />
-    <input id="i08" style="margin-left:1.8em" type="range" min="0" max="100" step="1" orient="vertical" list="marcas" />
-    <input id="i09" style="margin-left:1.8em" type="range" min="0" max="100" step="1" orient="vertical" list="marcas" />
-    <input id="i10" style="margin-left:1.8em" type="range" min="0" max="100" step="1" orient="vertical" list="marcas" />
-    <br>
-    <label>0.0&nbsp;&nbsp;&nbsp;0.1&nbsp;&nbsp;&nbsp;0.2&nbsp;&nbsp;&nbsp;0.3&nbsp;&nbsp;&nbsp;0.4&nbsp;&nbsp;&nbsp;0.5&nbsp;&nbsp;&nbsp;0.6&nbsp;&nbsp;&nbsp;0.7&nbsp;&nbsp;&nbsp;0.8&nbsp;&nbsp;&nbsp;0.9&nbsp;&nbsp;&nbsp;1.0</label>
-    <br><br>
-    <button id="btn_playStop" onclick="playStop()">Play</button>
-</body>
+        <script src="libs/Chart.js"></script>
+        <script src="libs/helpers.js"></script>
+        <script src="libs/simpleTones.js"></script>
+
+        <script src="script.js" defer></script>
+        
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body style="margin-left:24px">
+
+        <div class="row">
+            <div class="column" style="margin-right:24px">
+                <br>
+                <label for="r">r (0-4) (0.001):</label>
+                <input id="r" type="number" min="0" max="4" step="0.001" value="3.832">
+                <br>
+                <label for="x0">x0 (0.001-0.999) (0.001):</label>
+                <input id="x0" type="number" min="0" max="4" step="0.001" value="0.967">
+                <br><br>
+                <label for="minFrq">minFrq (20-20000) (1):</label>
+                <input id="minFrq" type="number" min="20" max="20000" step="1" value="400">
+                <br>
+                <label for="maxFrq">maxFrq (20-20000) (1):</label>
+                <input id="maxFrq" type="number" min="20" max="20000" step="1" value="800">
+                <br>
+                <label for="bpm">BPM (60-360) (1):</label>
+                <input id="bpm" type="number" min="60" max="360" step="1" value="200">
+                <br>
+                <label for="waveType">wave type (options):</label>
+                <select id="waveType">
+                    <option value="sine">Sine</option>
+                    <option value="square">Square</option>
+                    <option value="sawtooth">Sawtooth</option>
+                    <option value="triangle">Triangle</option>
+                </select>
+            </div>
+            <div class="column" style="margin-right:24px">
+                <br>
+                <label>X to Frequency map (minFrq-maxFrq Hz):</label>
+                <br><br>
+                <datalist id="marcas">
+                    <option value="100">
+                    <option value="75">
+                    <option value="50">
+                    <option value="24">
+                    <option value="0">
+                </datalist>
+                <input id="frequency_00" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="marcas" style="margin-left: 8px" />
+                <input id="frequency_01" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="frequency_02" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="frequency_03" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="frequency_04" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="frequency_05" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="frequency_06" type="range" min="0" max="100" step="1" value="0" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="frequency_07" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="frequency_08" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="frequency_09" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="frequency_10" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="marcas" style="margin-left:32px" />
+                <br>
+                <label>0.0&nbsp;&nbsp;&nbsp;0.1&nbsp;&nbsp;&nbsp;0.2&nbsp;&nbsp;&nbsp;0.3&nbsp;&nbsp;&nbsp;0.4&nbsp;&nbsp;&nbsp;0.5&nbsp;&nbsp;&nbsp;0.6&nbsp;&nbsp;&nbsp;0.7&nbsp;&nbsp;&nbsp;0.8&nbsp;&nbsp;&nbsp;0.9&nbsp;&nbsp;&nbsp;1.0</label>
+            </div>
+        </div>
+        <br><br>
+        <button id="playStop" onclick="control.playStop()">Play</button>
+        <br><br>
+        <button onclick="control.downloadState()">Export</button>
+
+        <button id="loadButton">Load</button>
+        <input type="file" style="display:none" id="loadInput"/>
+        
+    </body>
 </html>
