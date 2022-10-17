@@ -1,4 +1,5 @@
 
+
 // https://stackoverflow.com/a/30832210/13460186
 
 function download (data, filename, type) {
@@ -14,6 +15,7 @@ function download (data, filename, type) {
         window.URL.revokeObjectURL(url);  
     }, 0); 
 }
+
 
 // https://stackoverflow.com/a/66387148/13460186
 

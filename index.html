@@ -3,51 +3,66 @@
 
 <html lang="es">
     <head>
+
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Ecuación logística</title>
 
-        <script src="libs/Chart.js"></script>
-        <script src="libs/helpers.js"></script>
-        <script src="libs/simpleTones.js"></script>
+        <script src="scripts/libs/Chart.js" defer></script>
+        <script src="scripts/libs/helpers.js" defer></script>
+        <script src="scripts/libs/simpleTones.js" defer></script>
 
-        <script src="script.js" defer></script>
+        <script src="scripts/algorithm.js" defer></script>
+        <script src="scripts/control.js" defer></script>
+        <script src="scripts/setup.js" defer></script>
+        <script src="scripts/ui.js" defer></script>
         
         <link rel="stylesheet" href="styles.css">
+
     </head>
     <body style="margin-left:24px">
 
         <div class="row">
             <div class="column" style="margin-right:24px">
                 <br>
-                <label for="r">r (0-4) (0.001):</label>
+                <pre>r  (0     - 4    ) (0.001):</pre>
                 <input id="r" type="number" min="0" max="4" step="0.001" value="3.832">
                 <br>
-                <label for="x0">x0 (0.001-0.999) (0.001):</label>
-                <input id="x0" type="number" min="0" max="4" step="0.001" value="0.967">
+                <pre>x0 (0.001 - 0.999) (0.001):</pre>
+                <input id="x0" type="number" min="0" max="1" step="0.001" value="0.967">
                 <br><br>
-                <label for="minFrq">minFrq (20-20000) (1):</label>
+                <pre>min hz (20 - 20000) (1):</pre>
                 <input id="minFrq" type="number" min="20" max="20000" step="1" value="400">
                 <br>
-                <label for="maxFrq">maxFrq (20-20000) (1):</label>
+                <pre>max hz (20 - 20000) (1):</pre>
                 <input id="maxFrq" type="number" min="20" max="20000" step="1" value="800">
-                <br>
-                <label for="bpm">BPM (60-360) (1):</label>
+                <br><br>
+                <pre>bpm (60 - 360) (1):</pre>
                 <input id="bpm" type="number" min="60" max="360" step="1" value="200">
-                <br>
-                <label for="waveType">wave type (options):</label>
+                <br><br>
+                <pre>wave type (options):</pre>
                 <select id="waveType">
                     <option value="sine">Sine</option>
                     <option value="square">Square</option>
                     <option value="sawtooth">Sawtooth</option>
                     <option value="triangle">Triangle</option>
                 </select>
+                <br><br>
+                <pre>[Local storage]:</pre>
+                <button id="saveLocalStorageButton" style="background-color: DeepSkyBlue;">Save as ...</button>
+                <br>
+                <select id="localStorage" style="width: 312px;"><option value="sine">123456789012345678901234567890123456789</option></select>
+                <br><br>
+                <pre>[External storage]:</pre>
+                <button onclick="control.saveStateToFile()" style="background-color: Gold;">Export</button>
+                <button id="loadButton" style="background-color: HotPink;">Load</button>
+                <input type="file" style="display:none" id="loadInput"/>
             </div>
             <div class="column" style="margin-right:24px">
                 <br>
-                <label>X to Frequency map (minFrq-maxFrq Hz):</label>
+                <pre>x to hz map (min hz - max hz):</pre>
                 <br><br>
                 <datalist id="marcas">
                     <option value="100">
@@ -68,16 +83,11 @@
                 <input id="frequency_09" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
                 <input id="frequency_10" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="marcas" style="margin-left:32px" />
                 <br>
-                <label>0.0&nbsp;&nbsp;&nbsp;0.1&nbsp;&nbsp;&nbsp;0.2&nbsp;&nbsp;&nbsp;0.3&nbsp;&nbsp;&nbsp;0.4&nbsp;&nbsp;&nbsp;0.5&nbsp;&nbsp;&nbsp;0.6&nbsp;&nbsp;&nbsp;0.7&nbsp;&nbsp;&nbsp;0.8&nbsp;&nbsp;&nbsp;0.9&nbsp;&nbsp;&nbsp;1.0</label>
+                <pre>0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9   1.0</pre>
             </div>
         </div>
         <br><br>
-        <button id="playStop" onclick="control.playStop()">Play</button>
-        <br><br>
-        <button onclick="control.downloadState()">Export</button>
-
-        <button id="loadButton">Load</button>
-        <input type="file" style="display:none" id="loadInput"/>
+        <button id="playStop" onclick="control.playStop()" style="background-color: LimeGreen;">Play</button>
         
     </body>
 </html>

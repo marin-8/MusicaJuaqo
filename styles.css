@@ -8,14 +8,15 @@ body {
     background-color: darkslategray;
 }
 
-label {
+pre {
     color: white;
+    display: inline;
 }
 
 input[type=range][orient=vertical] {
     -webkit-appearance: slider-vertical; /* Chromium */
     width: 8px;
-    height: 200px;
+    height: 250px;
     padding: 0 5px;
 }
 
