@@ -6,6 +6,10 @@ const ui = {
     maxFrq: document.getElementById("maxFrq"),
     bpm: document.getElementById("bpm"),
     waveType: document.getElementById("waveType"),
+    saveLocalStorage: document.getElementById("saveLocalStorageButton"),
+    deleteLocalStorage: document.getElementById("deleteLocalStorageButton"),
+    localStorage: document.getElementById("localStorage"),
+    loadInput: document.getElementById("loadInput"),
     frequencyMapSliders: [
         document.getElementById("frequency_00"),
         document.getElementById("frequency_01"),
@@ -20,5 +24,4 @@ const ui = {
         document.getElementById("frequency_10"),
     ],
     playStop: document.getElementById("playStop"),
-    loadInput: document.getElementById("loadInput"),
 };

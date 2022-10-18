@@ -16,8 +16,9 @@
 
         <script src="scripts/algorithm.js" defer></script>
         <script src="scripts/control.js" defer></script>
-        <script src="scripts/setup.js" defer></script>
         <script src="scripts/ui.js" defer></script>
+
+        <script src="script.js" defer></script>
         
         <link rel="stylesheet" href="styles.css">
 
@@ -51,14 +52,15 @@
                 </select>
                 <br><br>
                 <pre>[Local storage]:</pre>
-                <button id="saveLocalStorageButton" style="background-color: DeepSkyBlue;">Save as ...</button>
+                <button id="saveLocalStorageButton" onclick="control.saveStateAsToLocalStorage()" style="background-color: DeepSkyBlue;">Save as</button>
+                <button id="deleteLocalStorageButton" onclick="control.deleteStateFromLocalStorage()" style="background-color: LightCoral;">Delete</button>
                 <br>
-                <select id="localStorage" style="width: 312px;"><option value="sine">123456789012345678901234567890123456789</option></select>
+                <select id="localStorage" onchange="control.loadStateFromLocalStorage()" style="width: 316px;"></select>
                 <br><br>
                 <pre>[External storage]:</pre>
                 <button onclick="control.saveStateToFile()" style="background-color: Gold;">Export</button>
                 <button id="loadButton" style="background-color: HotPink;">Load</button>
-                <input type="file" style="display:none" id="loadInput"/>
+                <input type="file" id="loadInput" style="display:none"/>
             </div>
             <div class="column" style="margin-right:24px">
                 <br>

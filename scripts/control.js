@@ -1,8 +1,14 @@
 
+// TODO: cambiar nombre clase por this dentro (?)
+// TODO: estandarizar uso de let/var/const
+
 const control = {
 
     playing: false,
     intervalHandler: null,
+
+    prefixForCurrentState: "==(!@#?]==",
+    prefixForUserSavedStates: "==[¿#@¡)==",
 
     playStop: function () {
         if (control.playing) {
@@ -78,6 +84,73 @@ const control = {
             alert("Error intentando mapear el contenido deserializado del archivo");
             return;
         }
+    },
+
+    saveStateAsToLocalStorage: function () {
+        let nameForSave = prompt("Introduce un nombre para el guardado.\n\n(Máximo 40 caracteres).\n(Los caracteres adicionales serán ignorados).\n");
+
+        if (nameForSave === null) {
+            return;
+        }
+
+        nameForSave = nameForSave.trim();
+
+        if (nameForSave.length === 0){
+            alert("No se ha introducido un nombre correcto. Inténtalo de nuevo.");
+            return;
+        }
+
+        nameForSave = nameForSave.substring(0, 40);
+
+        let nameForLocalStorage = control.prefixForUserSavedStates + nameForSave;
+
+        let sobrescribir = false;
+        if (localStorage.getItem(nameForLocalStorage) !== null){
+            sobrescribir = confirm("Ya existe un guardado con el mismo nombre.\n\n¿Quieres sobrescribirlo?");
+            if (!sobrescribir){
+                return;
+            }
+        }
+
+        let stateSerialized = control.serializeState();
+        localStorage.setItem(nameForLocalStorage, stateSerialized);
+
+        if (!sobrescribir) {
+            var newOption = document.createElement("option");
+            newOption.value = nameForLocalStorage;
+            newOption.innerHTML = nameForSave;
+            ui.localStorage.appendChild(newOption);
+        }
+
+        ui.localStorage.value = nameForLocalStorage;
+    },
+
+    loadStateFromLocalStorage: function () {
+        if (ui.localStorage.value == null
+            || ui.localStorage.value == undefined
+            || ui.localStorage.value == "") {
+            return;
+        }
+        const stateSerialized = localStorage.getItem(ui.localStorage.value);
+        control.deserializeAndSetState(stateSerialized);
+    },
+
+    deleteStateFromLocalStorage: function () {
+        if (ui.localStorage.value == "") {
+            return;
+        }
+
+        let confirmDelete = confirm("¿Seguro que quieres eliminarlo?");
+
+        if (!confirmDelete) {
+            return;
+        }
+
+        localStorage.removeItem(ui.localStorage.value);
+        ui.localStorage.remove(ui.localStorage.selectedIndex);
+
+        let changeEvent = new Event('change');
+        ui.localStorage.dispatchEvent(changeEvent);
     },
 
     saveStateToFile: function () {
