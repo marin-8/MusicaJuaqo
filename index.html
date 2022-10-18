@@ -44,7 +44,7 @@
                 <input id="bpm" type="number" min="60" max="360" step="1" value="200">
                 <br><br>
                 <pre>wave type (options):</pre>
-                <select id="waveType">
+                <select id="waveType" on="console.log('hey')">
                     <option value="sine">Sine</option>
                     <option value="square">Square</option>
                     <option value="sawtooth">Sawtooth</option>
@@ -55,7 +55,9 @@
                 <button id="saveLocalStorageButton" onclick="control.saveStateAsToLocalStorage()" style="background-color: DeepSkyBlue;">Save as</button>
                 <button id="deleteLocalStorageButton" onclick="control.deleteStateFromLocalStorage()" style="background-color: LightCoral;">Delete</button>
                 <br>
-                <select id="localStorage" onchange="control.loadStateFromLocalStorage()" style="width: 316px;"></select>
+                <select id="localStorage" onchange="control.loadStateFromLocalStorage()" style="width: 316px;">
+                    <option value=""></option>
+                </select>
                 <br><br>
                 <pre>[External storage]:</pre>
                 <button onclick="control.saveStateToFile()" style="background-color: Gold;">Export</button>
