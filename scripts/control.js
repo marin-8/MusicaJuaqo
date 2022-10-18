@@ -40,13 +40,20 @@ const control = {
                     const actualValue = (maxFrq - minFrq) * percentageValue + minFrq;
                     return actualValue;
                 });
+
+            frequencyChart.setup();
     
-            control.intervalHandler = setInterval(algorithm.method, algorithm.time);
+            control.intervalHandler = setInterval(this.intervalFunction, algorithm.time);
     
             ui.playStop.innerHTML = "Stop";
         }
     
         control.playing = !control.playing;
+    },
+
+    intervalFunction: function() {
+        let frequency = algorithm.method();
+        frequencyChart.extendTraces(frequency);
     },
 
     serializeState: function () {

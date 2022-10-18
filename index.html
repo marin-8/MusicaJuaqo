@@ -10,41 +10,42 @@
 
         <title>Ecuación logística</title>
 
-        <script src="scripts/libs/Chart.js" defer></script>
         <script src="scripts/libs/helpers.js" defer></script>
+        <script src="scripts/libs/plotly.js" defer></script>
         <script src="scripts/libs/simpleTones.js" defer></script>
 
         <script src="scripts/algorithm.js" defer></script>
         <script src="scripts/control.js" defer></script>
+        <script src="scripts/frequencyChart.js" defer></script>
         <script src="scripts/ui.js" defer></script>
 
-        <script src="script.js" defer></script>
+        <script src="setup.js" defer></script>
         
         <link rel="stylesheet" href="styles.css">
 
     </head>
-    <body style="margin-left:24px">
+    <body style="margin-left:24px" class="hundred">
 
-        <div class="row">
-            <div class="column" style="margin-right:24px">
+        <div class="row" style="height: auto;">
+            <div class="column" style="margin-right:24px; height: auto;">
                 <br>
                 <pre>r  (0     - 4    ) (0.001):</pre>
-                <input id="r" type="number" min="0" max="4" step="0.001" value="3.832">
+                <input id="r" type="number" min="0" max="4" step="0.001" value="3.832" style="height: auto;">
                 <br>
                 <pre>x0 (0.001 - 0.999) (0.001):</pre>
-                <input id="x0" type="number" min="0" max="1" step="0.001" value="0.967">
+                <input id="x0" type="number" min="0" max="1" step="0.001" value="0.967" style="height: auto;">
                 <br><br>
                 <pre>min hz (20 - 20000) (1):</pre>
-                <input id="minFrq" type="number" min="20" max="20000" step="1" value="400">
+                <input id="minFrq" type="number" min="20" max="20000" step="1" value="400" style="height: auto;">
                 <br>
                 <pre>max hz (20 - 20000) (1):</pre>
-                <input id="maxFrq" type="number" min="20" max="20000" step="1" value="800">
+                <input id="maxFrq" type="number" min="20" max="20000" step="1" value="800" style="height: auto;">
                 <br><br>
                 <pre>bpm (60 - 360) (1):</pre>
-                <input id="bpm" type="number" min="60" max="360" step="1" value="200">
+                <input id="bpm" type="number" min="60" max="360" step="1" value="200" style="height: auto;">
                 <br><br>
                 <pre>wave type (options):</pre>
-                <select id="waveType" on="console.log('hey')">
+                <select id="waveType" on="console.log('hey')" style="height: auto;">
                     <option value="sine">Sine</option>
                     <option value="square">Square</option>
                     <option value="sawtooth">Sawtooth</option>
@@ -52,19 +53,22 @@
                 </select>
                 <br><br>
                 <pre>[Local storage]:</pre>
-                <button id="saveLocalStorageButton" onclick="control.saveStateAsToLocalStorage()" style="background-color: DeepSkyBlue;">Save as</button>
-                <button id="deleteLocalStorageButton" onclick="control.deleteStateFromLocalStorage()" style="background-color: LightCoral;">Delete</button>
+                <button id="saveLocalStorageButton" onclick="control.saveStateAsToLocalStorage()" style="background-color: DeepSkyBlue; height: auto;">Save as</button>
+                <button id="deleteLocalStorageButton" onclick="control.deleteStateFromLocalStorage()" style="background-color: LightCoral; height: auto;">Delete</button>
                 <br>
-                <select id="localStorage" onchange="control.loadStateFromLocalStorage()" style="width: 316px;">
+                <select id="localStorage" onchange="control.loadStateFromLocalStorage()" style="width: 316px; height: auto;">
                     <option value=""></option>
                 </select>
                 <br><br>
                 <pre>[External storage]:</pre>
-                <button onclick="control.saveStateToFile()" style="background-color: Gold;">Export</button>
-                <button id="loadButton" style="background-color: HotPink;">Load</button>
-                <input type="file" id="loadInput" style="display:none"/>
+                <button onclick="control.saveStateToFile()" style="background-color: Gold; height: auto;">Export</button>
+                <button id="loadButton" style="background-color: HotPink; height: auto;">Load</button>
+                <input type="file" id="loadInput" style="display:none; height: auto;"/>
+                <br><br>
+                <pre>[Player]:</pre>
+                <button id="playStop" onclick="control.playStop()" style="background-color: LimeGreen; height: auto;">Play</button>
             </div>
-            <div class="column" style="margin-right:24px">
+            <div class="column" style="margin-right:24px; height: auto;">
                 <br>
                 <pre>x to hz map (min hz - max hz):</pre>
                 <br><br>
@@ -90,8 +94,13 @@
                 <pre>0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9   1.0</pre>
             </div>
         </div>
+
         <br><br>
-        <button id="playStop" onclick="control.playStop()" style="background-color: LimeGreen;">Play</button>
+        <!-- <div>
+            <canvas id="frequencyChart" height="248" style="background-color: white;"></canvas>
+        </div> -->
+
+        <div id='myDiv' style="height: calc(100% - 390px);"></div>
         
     </body>
 </html>

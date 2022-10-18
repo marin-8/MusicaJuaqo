@@ -28,4 +28,4 @@ window.onload = function() {
 window.onunload = function() {
     const stateSerialized = control.serializeState();
     localStorage.setItem(control.prefixForCurrentState + "state", stateSerialized);
-}
+}  

@@ -10,6 +10,7 @@ const ui = {
     deleteLocalStorage: document.getElementById("deleteLocalStorageButton"),
     localStorage: document.getElementById("localStorage"),
     loadInput: document.getElementById("loadInput"),
+    playStop: document.getElementById("playStop"),
     frequencyMapSliders: [
         document.getElementById("frequency_00"),
         document.getElementById("frequency_01"),
@@ -23,5 +24,5 @@ const ui = {
         document.getElementById("frequency_09"),
         document.getElementById("frequency_10"),
     ],
-    playStop: document.getElementById("playStop"),
+    frequencyChart: document.getElementById("frequencyChart"),
 };

@@ -17,5 +17,7 @@ const algorithm = {
         playTone(frequency, a.waveType, a.time/1000);
 
         a.x = a.r * a.x * (1 - a.x);
+
+        return frequency;
     }
 };
