@@ -12,10 +12,8 @@ const control = {
 
     playStop: function () {
         if (control.playing) {
-            if (control.intervalHandler) {
-                window.clearInterval(control.intervalHandler);
-            }
             ui.playStop.innerHTML = "Play";
+            control.playing = !control.playing;
         }
         else {
             const minFrq = parseInt(ui.minFrq.value);
@@ -41,19 +39,29 @@ const control = {
                     return actualValue;
                 });
 
-            frequencyChart.setup();
+            frequencyChart.setup(minFrq, maxFrq);
     
-            control.intervalHandler = setInterval(this.intervalFunction, algorithm.time);
+            control.playing = !control.playing;
+
+            control.periodicall(algorithm.time);
     
             ui.playStop.innerHTML = "Stop";
         }
-    
-        control.playing = !control.playing;
     },
 
-    intervalFunction: function() {
-        let frequency = algorithm.method();
-        frequencyChart.extendTraces(frequency);
+    periodicall: function(time) {
+        let xAndFrequency = algorithm.method();
+
+        frequencyChart.extendTraces(
+            xAndFrequency.x,
+            xAndFrequency.frequency);
+
+        if (control.playing) {
+            setTimeout(function () {
+                control.periodicall(time);
+            },
+            time);
+        }
     },
 
     serializeState: function () {
