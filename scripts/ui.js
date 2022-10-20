@@ -1,28 +1,30 @@
 
-const ui = {
-    r: document.getElementById("r"),
-    x0: document.getElementById("x0"),
-    minFrq: document.getElementById("minFrq"),
-    maxFrq: document.getElementById("maxFrq"),
-    bpm: document.getElementById("bpm"),
-    waveType: document.getElementById("waveType"),
-    saveLocalStorage: document.getElementById("saveLocalStorageButton"),
-    deleteLocalStorage: document.getElementById("deleteLocalStorageButton"),
-    localStorage: document.getElementById("localStorage"),
-    loadInput: document.getElementById("loadInput"),
-    playStop: document.getElementById("playStop"),
-    frequencyMapSliders: [
-        document.getElementById("frequency_00"),
-        document.getElementById("frequency_01"),
-        document.getElementById("frequency_02"),
-        document.getElementById("frequency_03"),
-        document.getElementById("frequency_04"),
-        document.getElementById("frequency_05"),
-        document.getElementById("frequency_06"),
-        document.getElementById("frequency_07"),
-        document.getElementById("frequency_08"),
-        document.getElementById("frequency_09"),
-        document.getElementById("frequency_10"),
-    ],
-    frequencyChart: document.getElementById("frequencyChart"),
-};
+class UI
+{
+    static R = document.getElementById("ui_r");
+    static X0 = document.getElementById("ui_x0");
+    static MinHz = document.getElementById("ui_minHz");
+    static MaxHz = document.getElementById("ui_maxHz");
+    static BPM = document.getElementById("ui_bpm");
+    static WaveType = document.getElementById("ui_waveType");
+    static SaveLocalStorage = document.getElementById("ui_saveLocalStorage");
+    static DeleteLocalStorage = document.getElementById("ui_deleteLocalStorage");
+    static LocalStorageSaves = document.getElementById("ui_localStorageSaves");
+    static LoadExternalStorage_button = document.getElementById("ui_loadExternalStorage_button");
+    static LoadExternalStorage_input = document.getElementById("ui_loadExternalStorage_input");
+    static PlayStop = document.getElementById("ui_playStop");
+    static HzSliders = [
+        document.getElementById("ui_hzSlider_0.0"),
+        document.getElementById("ui_hzSlider_0.1"),
+        document.getElementById("ui_hzSlider_0.2"),
+        document.getElementById("ui_hzSlider_0.3"),
+        document.getElementById("ui_hzSlider_0.4"),
+        document.getElementById("ui_hzSlider_0.5"),
+        document.getElementById("ui_hzSlider_0.6"),
+        document.getElementById("ui_hzSlider_0.7"),
+        document.getElementById("ui_hzSlider_0.8"),
+        document.getElementById("ui_hzSlider_0.9"),
+        document.getElementById("ui_hzSlider_1.0"),
+    ];
+    static Chart = document.getElementById("ui_chart");
+}

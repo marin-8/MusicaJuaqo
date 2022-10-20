@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 
 <html lang="es">
+
     <head>
 
         <meta charset="UTF-8">
@@ -10,97 +11,112 @@
 
         <title>Ecuación logística</title>
 
-        <script src="scripts/libs/helpers.js" defer></script>
-        <script src="scripts/libs/plotly.js" defer></script>
+        <script src="scripts/libs/Helpers.js" defer></script>
+        <script src="scripts/libs/Plotly.js" defer></script>
         <script src="scripts/libs/simpleTones.js" defer></script>
 
-        <script src="scripts/algorithm.js" defer></script>
-        <script src="scripts/control.js" defer></script>
-        <script src="scripts/frequencyChart.js" defer></script>
-        <script src="scripts/ui.js" defer></script>
+        <script src="scripts/AlgorithmPlayer.js" defer></script>
+        <script src="scripts/Control.js" defer></script>
+        <script src="scripts/FrequencyChart.js" defer></script>
+        <script src="scripts/State.js" defer></script>
+        <script src="scripts/UI.js" defer></script>
 
         <script src="setup.js" defer></script>
         
         <link rel="stylesheet" href="styles.css">
 
     </head>
+	
     <body style="margin-left:24px" class="hundred">
 
         <div class="row" style="height: auto;">
+
             <div class="column" style="margin-right:24px; height: auto;">
+
                 <br>
                 <pre>r  (0     - 4    ) (0.001):</pre>
-                <input id="r" type="number" min="0" max="4" step="0.001" value="3.832" style="height: auto;">
+                <input id="ui_r" type="number" min="0" max="4" step="0.001" value="3.832" style="height: auto;">
+
                 <br>
                 <pre>x0 (0.001 - 0.999) (0.001):</pre>
-                <input id="x0" type="number" min="0" max="1" step="0.001" value="0.967" style="height: auto;">
+                <input id="ui_x0" type="number" min="0" max="1" step="0.001" value="0.967" style="height: auto;">
+
                 <br><br>
                 <pre>min hz (20 - 20000) (1):</pre>
-                <input id="minFrq" type="number" min="20" max="20000" step="1" value="400" style="height: auto;">
+                <input id="ui_minHz" type="number" min="20" max="20000" step="1" value="400" style="height: auto;">
+
                 <br>
                 <pre>max hz (20 - 20000) (1):</pre>
-                <input id="maxFrq" type="number" min="20" max="20000" step="1" value="800" style="height: auto;">
+                <input id="ui_maxHz" type="number" min="20" max="20000" step="1" value="800" style="height: auto;">
+
                 <br><br>
-                <pre>bpm (60 - 360) (1):</pre>
-                <input id="bpm" type="number" min="60" max="360" step="1" value="200" style="height: auto;">
+                <pre>bpm (60 - 480) (1):</pre>
+                <input id="ui_bpm" type="number" min="60" max="480" step="1" value="200" style="height: auto;">
+
                 <br><br>
                 <pre>wave type (options):</pre>
-                <select id="waveType" on="console.log('hey')" style="height: auto;">
+                <select id="ui_waveType" on="console.log('hey')" style="height: auto;">
                     <option value="sine">Sine</option>
                     <option value="square">Square</option>
                     <option value="sawtooth">Sawtooth</option>
                     <option value="triangle">Triangle</option>
                 </select>
+
                 <br><br>
                 <pre>[Local storage]:</pre>
-                <button id="saveLocalStorageButton" onclick="control.saveStateAsToLocalStorage()" style="background-color: DeepSkyBlue; height: auto;">Save as</button>
-                <button id="deleteLocalStorageButton" onclick="control.deleteStateFromLocalStorage()" style="background-color: LightCoral; height: auto;">Delete</button>
+                <button id="ui_saveLocalStorage" onclick="State.SaveStateAsToLocalStorage()" style="background-color: DeepSkyBlue; height: auto;">Save</button>
+                <button id="ui_deleteLocalStorage" onclick="State.DeleteStateFromLocalStorage()" style="background-color: LightCoral; height: auto;">Delete</button>
+
                 <br>
-                <select id="localStorage" onchange="control.loadStateFromLocalStorage()" style="width: 316px; height: auto;">
+                <select id="ui_localStorageSaves" onchange="State.LoadStateFromLocalStorage()" style="width: 316px; height: auto;">
                     <option value=""></option>
                 </select>
+				
                 <br><br>
                 <pre>[External storage]:</pre>
-                <button onclick="control.saveStateToFile()" style="background-color: Gold; height: auto;">Export</button>
-                <button id="loadButton" style="background-color: HotPink; height: auto;">Load</button>
-                <input type="file" id="loadInput" style="display:none; height: auto;"/>
+                <button onclick="State.SaveStateToFile()" style="background-color: Gold; height: auto;">Export</button>
+                <button id="ui_loadExternalStorage_button" style="background-color: HotPink; height: auto;">Load</button>
+                <input type="file" id="ui_loadExternalStorage_input" style="display:none; height: auto;"/>
+				
                 <br><br>
                 <pre>[Player]:</pre>
-                <button id="playStop" onclick="control.playStop()" style="background-color: LimeGreen; height: auto;">Play</button>
+                <button id="ui_playStop" onclick="Control.PlayStop()" style="background-color: LimeGreen; height: auto;">Play</button>
+
             </div>
+
             <div class="column" style="margin-right:24px; height: auto;">
+
                 <br>
                 <pre>x to hz map (min hz - max hz):</pre>
                 <br><br>
-                <datalist id="marcas">
+                <datalist id="ui_marcas">
                     <option value="100">
                     <option value="75">
                     <option value="50">
                     <option value="24">
                     <option value="0">
                 </datalist>
-                <input id="frequency_00" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="marcas" style="margin-left: 8px" />
-                <input id="frequency_01" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="frequency_02" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="frequency_03" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="frequency_04" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="frequency_05" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="frequency_06" type="range" min="0" max="100" step="1" value="0" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="frequency_07" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="frequency_08" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="frequency_09" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="frequency_10" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.0" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="marcas" style="margin-left: 8px" />
+                <input id="ui_hzSlider_0.1" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.2" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.3" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.4" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.5" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.6" type="range" min="0" max="100" step="1" value="0" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.7" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.8" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.9" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="ui_hzSlider_1.0" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="marcas" style="margin-left:32px" />
                 <br>
                 <pre>0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9   1.0</pre>
+
             </div>
+
         </div>
 
         <br><br>
-        <!-- <div>
-            <canvas id="frequencyChart" height="248" style="background-color: white;"></canvas>
-        </div> -->
-
-        <div id='myDiv' style="height: calc(100% - 390px);"></div>
+        <div id='ui_chart' style="height: calc(100% - 390px);"></div>
         
     </body>
+
 </html>

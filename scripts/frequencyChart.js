@@ -1,18 +1,20 @@
 
-const frequencyChart = {
-      
-    cnt: null,
+class FrequencyChart
+{
+	static #X;
 
-    setup: function (minFrq, maxFrq) {
-
-        var trace1 = {
+	static Setup (minFrq, maxFrq)
+	{
+		var trace1 =
+		{
             name: "x",
             x: [0],
             y: [null],
             mode: 'line'
         };
     
-        var trace2 = {
+        var trace2 =
+		{
             name: "frequency",
             x: [0],
             y: [null],
@@ -22,16 +24,20 @@ const frequencyChart = {
     
         var traces = [trace1, trace2];
 
-        var layout = {
-            yaxis: {
+        var layout =
+		{
+            yaxis:
+			{
                 range: [ 0.0, 1.0 ]
             },
-            yaxis2: {
+            yaxis2:
+			{
                 range: [ minFrq, maxFrq ],
                 side: 'right',
                 overlaying: 'y'
             },
-            margin: {
+            margin:
+			{
                 l: 30,
                 r: 40,
                 b: 24,
@@ -39,13 +45,15 @@ const frequencyChart = {
                 pad: 0
             },
             hovermode: 'closest',
-            legend: {
+            legend:
+			{
                 x: 1.05,
                 y: 0.5
             }
         };
 
-        var config = {
+        var config =
+		{
             responsive: true,
             displayModeBar: false
         };
@@ -53,15 +61,16 @@ const frequencyChart = {
         this.cnt = 0;
 
         Plotly.newPlot(
-            'myDiv',
+            UI.Chart,
             traces,
             layout,
             config);
-    },
+	}
 
-    extendTraces: function (x, frequency) {
+	static ExtendTraces (x, frequency)
+	{
         Plotly.extendTraces(
-            'myDiv',
+            UI.Chart,
             {
                 x: [[this.cnt], [this.cnt]],
                 y: [[x], [frequency]]
@@ -70,14 +79,16 @@ const frequencyChart = {
 
         this.cnt++;
 
-        if(this.cnt > 25) {
+        if (this.cnt > 25)
+		{
             Plotly.relayout(
-                'myDiv',
+                UI.Chart,
                 {
-                    xaxis: {
+                    xaxis:
+					{
                         range: [this.cnt-25, this.cnt]
                     }
                 });
         }
     }
-};
+}
