@@ -12,9 +12,11 @@ class State
             X0: UI.X0.value,
             MinHz: UI.MinHz.value,
             MaxHz: UI.MaxHz.value,
-            BPM: UI.BPM.value,
+            MinBPM: UI.MinBPM.value,
+            MaxBPM: UI.MaxBPM.value,
             WaveType: UI.WaveType.value,
-            HzPerXMap: UI.HzSliders.map(fs => fs.value)
+            HzPerXMap: UI.HzSliders.map(s => s.value),
+            BPMPerXMap: UI.BPMSliders.map(s => s.value),
         };
 
         return JSON.stringify(state);
@@ -40,11 +42,16 @@ class State
             UI.X0.value = fileContentsDeserialized.X0;
             UI.MinHz.value = fileContentsDeserialized.MinHz;
             UI.MaxHz.value = fileContentsDeserialized.MaxHz;
-            UI.BPM.value = fileContentsDeserialized.BPM;
+            UI.MinBPM.value = fileContentsDeserialized.MinBPM;
+            UI.MaxBPM.value = fileContentsDeserialized.MaxBPM;
             UI.WaveType.value = fileContentsDeserialized.WaveType;
             UI.HzSliders.forEach(function (item, index)
 			{
                 item.value = fileContentsDeserialized.HzPerXMap[index];
+            });
+            UI.BPMSliders.forEach(function (item, index)
+			{
+                item.value = fileContentsDeserialized.BPMPerXMap[index];
             });
         }
 		catch(e)

@@ -17,8 +17,16 @@ pre {
 input[type=range][orient=vertical] {
     -webkit-appearance: slider-vertical;
     width: 8px;
-    height: 250px;
+    height: 280px;
     padding: 0 5px;
+}
+
+.hzSlidersColor {
+	accent-color: rgb(0,128,255);
+}
+
+.bpmSlidersColor {
+	accent-color: rgb(0,192,0)
 }
 
 .column {

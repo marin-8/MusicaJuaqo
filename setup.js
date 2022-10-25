@@ -11,9 +11,13 @@
 
 
 	window.onload = function() {
+
 		const stateSerialized = localStorage.getItem(State.PrefixForCurrentState + "state");
-		if (stateSerialized == null) return;
-		State.DeserializeAndSetState(stateSerialized);
+
+		if (stateSerialized != null)
+		{
+			State.DeserializeAndSetState(stateSerialized);
+		}
 
 		for (var key in localStorage) {
 			if (key.startsWith(State.PrefixForUserSavedStates)){
@@ -29,5 +33,5 @@
 	window.onunload = function() {
 		const stateSerialized = State.SerializeState();
 		localStorage.setItem(State.PrefixForCurrentState + "state", stateSerialized);
-	}  
+	}
 

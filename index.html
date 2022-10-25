@@ -31,6 +31,14 @@
 
         <div class="row" style="height: auto;">
 
+			<datalist id="ui_marcas">
+				<option value="100">
+				<option value="75">
+				<option value="50">
+				<option value="24">
+				<option value="0">
+			</datalist>
+
             <div class="column" style="margin-right:24px; height: auto;">
 
                 <br>
@@ -50,8 +58,12 @@
                 <input id="ui_maxHz" type="number" min="20" max="20000" step="1" value="800" style="height: auto;">
 
                 <br><br>
-                <pre>bpm (60 - 480) (1):</pre>
-                <input id="ui_bpm" type="number" min="60" max="480" step="1" value="200" style="height: auto;">
+                <pre>min bpm (60 - 480) (1):</pre>
+                <input id="ui_minBPM" type="number" min="60" max="480" step="1" value="120" style="height: auto;">
+
+                <br>
+                <pre>max bpm (60 - 480) (1):</pre>
+                <input id="ui_maxBPM" type="number" min="60" max="480" step="1" value="240" style="height: auto;">
 
                 <br><br>
                 <pre>wave type (options):</pre>
@@ -82,31 +94,45 @@
                 <pre>[Player]:</pre>
                 <button id="ui_playStop" onclick="Control.PlayStop()" style="background-color: LimeGreen; height: auto;">Play</button>
 
-            </div>
+            </div>			
 
             <div class="column" style="margin-right:24px; height: auto;">
 
                 <br>
                 <pre>x to hz map (min hz - max hz):</pre>
                 <br><br>
-                <datalist id="ui_marcas">
-                    <option value="100">
-                    <option value="75">
-                    <option value="50">
-                    <option value="24">
-                    <option value="0">
-                </datalist>
-                <input id="ui_hzSlider_0.0" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="marcas" style="margin-left: 8px" />
-                <input id="ui_hzSlider_0.1" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.2" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.3" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.4" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.5" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.6" type="range" min="0" max="100" step="1" value="0" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.7" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.8" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.9" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="marcas" style="margin-left:32px" />
-                <input id="ui_hzSlider_1.0" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="marcas" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.0" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left: 8px" />
+                <input id="ui_hzSlider_0.1" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.2" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.3" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.4" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.5" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.6" type="range" min="0" max="100" step="1" value="0" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.7" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.8" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
+                <input id="ui_hzSlider_0.9" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
+                <input id="ui_hzSlider_1.0" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
+                <br>
+                <pre>0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9   1.0</pre>
+
+            </div>
+
+			<div class="column" style="margin-right:24px; height: auto;">
+
+                <br>
+                <pre>x to bpm map (min bpm - max bpm):</pre>
+                <br><br>
+                <input id="ui_bpmSlider_0.0" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left: 8px" />
+                <input id="ui_bpmSlider_0.1" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
+                <input id="ui_bpmSlider_0.2" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
+                <input id="ui_bpmSlider_0.3" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
+                <input id="ui_bpmSlider_0.4" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
+                <input id="ui_bpmSlider_0.5" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
+                <input id="ui_bpmSlider_0.6" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
+                <input id="ui_bpmSlider_0.7" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
+                <input id="ui_bpmSlider_0.8" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
+                <input id="ui_bpmSlider_0.9" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
+                <input id="ui_bpmSlider_1.0" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
                 <br>
                 <pre>0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9   1.0</pre>
 
@@ -114,7 +140,7 @@
 
         </div>
 
-        <br><br>
+        <br>
         <div id='ui_chart' style="height: calc(100% - 390px);"></div>
         
     </body>
