@@ -19,60 +19,19 @@ class Control
 
 	static #Play ()
 	{
-		const minFrq = parseInt(UI.MinHz.value);
-		const maxFrq = parseInt(UI.MaxHz.value);
-
-		if (minFrq > maxFrq)
-		{
-			alert("Introduzca un rango de frecuencias válido.");
-			return;
-		}
-
-		const minBPM = parseInt(UI.MinBPM.value);
-		const maxBPM = parseInt(UI.MaxBPM.value);
-
-		if (minBPM > maxBPM)
-		{
-			alert("Introduzca un rango de bpm válido.");
-			return;
-		}
-
 		const r = parseFloat(UI.R.value);
 		const x = parseFloat(UI.X0.value);
 
 		const waveType = UI.WaveType.value;
 
-		const frequencyMap =
-			UI.HzSliders.map(
-				function (fms)
-				{
-					const sliderValue = parseInt(fms.value);
-					const percentageValue = sliderValue / 100;
-					const actualValue = (maxFrq - minFrq) * percentageValue + minFrq;
-					return actualValue;
-				});
-
-		const timeoutMap =
-			UI.BPMSliders.map(
-				function (bpms)
-				{
-					const sliderValue = parseInt(bpms.value);
-					const percentageValue = sliderValue / 100;
-					const actualBPMValue = (maxBPM - minBPM) * percentageValue + minBPM;
-					const actualTimeoutValue = 60000 / actualBPMValue;
-					return actualTimeoutValue;
-				});
-
 		AlgorithmPlayer.Setup
 		(
 			r,
 			x,
-			waveType,
-			frequencyMap,
-			timeoutMap
+			waveType
 		);
 
-		FrequencyChart.Setup(minFrq, maxFrq);
+		FrequencyChart.Setup();
 
 		this.#Playing = !this.#Playing;
 
@@ -83,11 +42,9 @@ class Control
 
 	static #PeriodicCall ()
 	{
-		const xAndFrequencyAndTimeout = AlgorithmPlayer.Method();
+		const xAndTimeout = AlgorithmPlayer.Method();
 
-        FrequencyChart.ExtendTraces(
-            xAndFrequencyAndTimeout.x,
-            xAndFrequencyAndTimeout.frequency);
+        FrequencyChart.ExtendTraces(xAndTimeout.x);
 
         if (this.#Playing)
 		{
@@ -96,7 +53,7 @@ class Control
 				{
 					Control.#PeriodicCall();
 				},
-            	xAndFrequencyAndTimeout.timeout);
+            	xAndTimeout.timeout);
         }
 	}
 }

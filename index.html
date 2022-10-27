@@ -31,14 +31,6 @@
 
         <div class="row" style="height: auto;">
 
-			<datalist id="ui_marcas">
-				<option value="100">
-				<option value="75">
-				<option value="50">
-				<option value="24">
-				<option value="0">
-			</datalist>
-
             <div class="column" style="margin-right:24px; height: auto;">
 
                 <br>
@@ -50,24 +42,8 @@
                 <input id="ui_x0" type="number" min="0" max="1" step="0.001" value="0.967" style="height: auto;">
 
                 <br><br>
-                <pre>min hz (20 - 20000) (1):</pre>
-                <input id="ui_minHz" type="number" min="20" max="20000" step="1" value="400" style="height: auto;">
-
-                <br>
-                <pre>max hz (20 - 20000) (1):</pre>
-                <input id="ui_maxHz" type="number" min="20" max="20000" step="1" value="800" style="height: auto;">
-
-                <br><br>
-                <pre>min bpm (60 - 480) (1):</pre>
-                <input id="ui_minBPM" type="number" min="60" max="480" step="1" value="120" style="height: auto;">
-
-                <br>
-                <pre>max bpm (60 - 480) (1):</pre>
-                <input id="ui_maxBPM" type="number" min="60" max="480" step="1" value="240" style="height: auto;">
-
-                <br><br>
-                <pre>wave type (options):</pre>
-                <select id="ui_waveType" on="console.log('hey')" style="height: auto;">
+                <pre>Tipo onda:</pre>
+                <select id="ui_waveType" style="height: auto;">
                     <option value="sine">Sine</option>
                     <option value="square">Square</option>
                     <option value="sawtooth">Sawtooth</option>
@@ -75,22 +51,22 @@
                 </select>
 
                 <br><br>
-                <pre>[Local storage]:</pre>
-                <button id="ui_saveLocalStorage" onclick="State.SaveStateAsToLocalStorage()" style="background-color: DeepSkyBlue; height: auto;">Save</button>
-                <button id="ui_deleteLocalStorage" onclick="State.DeleteStateFromLocalStorage()" style="background-color: LightCoral; height: auto;">Delete</button>
+                <pre>[Almacenamiento local]:</pre>
+                <button id="ui_saveLocalStorage" onclick="State.SaveStateAsToLocalStorage()" style="background-color: DeepSkyBlue; height: auto;">Guardar</button>
+                <button id="ui_deleteLocalStorage" onclick="State.DeleteStateFromLocalStorage()" style="background-color: LightCoral; height: auto;">Borrar</button>
 
                 <br>
-                <select id="ui_localStorageSaves" onchange="State.LoadStateFromLocalStorage()" style="width: 316px; height: auto;">
+                <select id="ui_localStorageSaves" onchange="State.LoadStateFromLocalStorage()" style="width: 347px; margin-top: 5px; height: auto;">
                     <option value=""></option>
                 </select>
 				
                 <br><br>
-                <pre>[External storage]:</pre>
-                <button onclick="State.SaveStateToFile()" style="background-color: Gold; height: auto;">Export</button>
-                <button id="ui_loadExternalStorage_button" style="background-color: HotPink; height: auto;">Load</button>
+                <pre>[Almacenamiento externo]:</pre>
+                <button onclick="State.SaveStateToFile()" style="background-color: Gold; height: auto;">Exportar</button>
+                <button id="ui_loadExternalStorage_button" style="background-color: HotPink; height: auto;">Cargar</button>
                 <input type="file" id="ui_loadExternalStorage_input" style="display:none; height: auto;"/>
 				
-                <br><br>
+                <br><br><br>
                 <pre>[Player]:</pre>
                 <button id="ui_playStop" onclick="Control.PlayStop()" style="background-color: LimeGreen; height: auto;">Play</button>
 
@@ -98,43 +74,89 @@
 
             <div class="column" style="margin-right:24px; height: auto;">
 
-                <br>
-                <pre>x to hz map (min hz - max hz):</pre>
-                <br><br>
-                <input id="ui_hzSlider_0.0" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left: 8px" />
-                <input id="ui_hzSlider_0.1" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.2" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.3" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.4" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.5" type="range" min="0" max="100" step="1" value="50" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.6" type="range" min="0" max="100" step="1" value="0" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.7" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.8" type="range" min="0" max="100" step="1" value="75" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
-                <input id="ui_hzSlider_0.9" type="range" min="0" max="100" step="1" value="25" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
-                <input id="ui_hzSlider_1.0" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="hzSlidersColor" style="margin-left:32px" />
-                <br>
-                <pre>0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9   1.0</pre>
+				<br>
+				<pre>Cuando Math.trunc(x*10)/10 ==</pre>
+				<br>
 
-            </div>
+				<br>
+				<pre>0.0 reproducir </pre>
+				<select id="ui_octave_0" style="height: auto;"></select>
+				<select id="ui_note_0" style="height: auto;"></select>
+				<pre> </pre><pre id="ui_frequency_0">---,----</pre><pre> Hz durante </pre>
+                <input id="ui_ms_0" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
+				<pre> ms (100 - 1000)</pre>
 
-			<div class="column" style="margin-right:24px; height: auto;">
+				<br>
+				<pre>0.1 reproducir </pre>
+				<select id="ui_octave_1" style="height: auto;"></select>
+				<select id="ui_note_1" style="height: auto;"></select>
+				<pre> </pre><pre id="ui_frequency_1">---,----</pre><pre> Hz durante </pre>
+                <input id="ui_ms_1" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
+				<pre> ms (100 - 1000)</pre>
 
-                <br>
-                <pre>x to bpm map (min bpm - max bpm):</pre>
-                <br><br>
-                <input id="ui_bpmSlider_0.0" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left: 8px" />
-                <input id="ui_bpmSlider_0.1" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
-                <input id="ui_bpmSlider_0.2" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
-                <input id="ui_bpmSlider_0.3" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
-                <input id="ui_bpmSlider_0.4" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
-                <input id="ui_bpmSlider_0.5" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
-                <input id="ui_bpmSlider_0.6" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
-                <input id="ui_bpmSlider_0.7" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
-                <input id="ui_bpmSlider_0.8" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
-                <input id="ui_bpmSlider_0.9" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
-                <input id="ui_bpmSlider_1.0" type="range" min="0" max="100" step="1" value="100" orient="vertical" list="ui_marcas" class="bpmSlidersColor" style="margin-left:32px" />
-                <br>
-                <pre>0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9   1.0</pre>
+				<br>
+				<pre>0.2 reproducir </pre>
+				<select id="ui_octave_2" style="height: auto;"></select>
+				<select id="ui_note_2" style="height: auto;"></select>
+				<pre> </pre><pre id="ui_frequency_2">---,----</pre><pre> Hz durante </pre>
+                <input id="ui_ms_2" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
+				<pre> ms (100 - 1000)</pre>
+				
+				<br>
+				<pre>0.3 reproducir </pre>
+				<select id="ui_octave_3" style="height: auto;"></select>
+				<select id="ui_note_3" style="height: auto;"></select>
+				<pre> </pre><pre id="ui_frequency_3">---,----</pre><pre> Hz durante </pre>
+                <input id="ui_ms_3" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
+				<pre> ms (100 - 1000)</pre>
+				
+				<br>
+				<pre>0.4 reproducir </pre>
+				<select id="ui_octave_4" style="height: auto;"></select>
+				<select id="ui_note_4" style="height: auto;"></select>
+				<pre> </pre><pre id="ui_frequency_4">---,----</pre><pre> Hz durante </pre>
+                <input id="ui_ms_4" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
+				<pre> ms (100 - 1000)</pre>
+
+				<br>
+				<pre>0.5 reproducir </pre>
+				<select id="ui_octave_5" style="height: auto;"></select>
+				<select id="ui_note_5" style="height: auto;"></select>
+				<pre> </pre><pre id="ui_frequency_5">---,----</pre><pre> Hz durante </pre>
+                <input id="ui_ms_5" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
+				<pre> ms (100 - 1000)</pre>
+
+				<br>
+				<pre>0.6 reproducir </pre>
+				<select id="ui_octave_6" style="height: auto;"></select>
+				<select id="ui_note_6" style="height: auto;"></select>
+				<pre> </pre><pre id="ui_frequency_6">---,----</pre><pre> Hz durante </pre>
+                <input id="ui_ms_6" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
+				<pre> ms (100 - 1000)</pre>
+
+				<br>
+				<pre>0.7 reproducir </pre>
+				<select id="ui_octave_7" style="height: auto;"></select>
+				<select id="ui_note_7" style="height: auto;"></select>
+				<pre> </pre><pre id="ui_frequency_7">---,----</pre><pre> Hz durante </pre>
+                <input id="ui_ms_7" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
+				<pre> ms (100 - 1000)</pre>
+				
+				<br>
+				<pre>0.8 reproducir </pre>
+				<select id="ui_octave_8" style="height: auto;"></select>
+				<select id="ui_note_8" style="height: auto;"></select>
+				<pre> </pre><pre id="ui_frequency_8">---,----</pre><pre> Hz durante </pre>
+                <input id="ui_ms_8" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
+				<pre> ms (100 - 1000)</pre>
+				
+				<br>
+				<pre>0.9 reproducir </pre>
+				<select id="ui_octave_9" style="height: auto;"></select>
+				<select id="ui_note_9" style="height: auto;"></select>
+				<pre> </pre><pre id="ui_frequency_9">---,----</pre><pre> Hz durante </pre>
+                <input id="ui_ms_9" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
+				<pre> ms (100 - 1000)</pre>
 
             </div>
 

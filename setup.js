@@ -10,28 +10,32 @@
 	UI.LoadExternalStorage_input.addEventListener("change", () => State.LoadStateFromFile(), false);
 
 
-	window.onload = function() {
+	// window.onload = function() {
 
-		const stateSerialized = localStorage.getItem(State.PrefixForCurrentState + "state");
+	// 	const stateSerialized = localStorage.getItem(State.PrefixForCurrentState + "state");
 
-		if (stateSerialized != null)
-		{
-			State.DeserializeAndSetState(stateSerialized);
-		}
+	// 	if (stateSerialized != null)
+	// 	{
+	// 		State.DeserializeAndSetState(stateSerialized);
+	// 	}
 
-		for (var key in localStorage) {
-			if (key.startsWith(State.PrefixForUserSavedStates)){
-				var newOption = document.createElement("option");
-				newOption.value = key;
-				newOption.innerHTML = key.substring(State.PrefixForUserSavedStates.length);
-				UI.LocalStorageSaves.appendChild(newOption);
-			}
-		}
-	}
+	// 	for (var key in localStorage) {
+	// 		if (key.startsWith(State.PrefixForUserSavedStates)){
+	// 			var newOption = document.createElement("option");
+	// 			newOption.value = key;
+	// 			newOption.innerHTML = key.substring(State.PrefixForUserSavedStates.length);
+	// 			UI.LocalStorageSaves.appendChild(newOption);
+	// 		}
+	// 	}
+	// }
 
 
-	window.onunload = function() {
-		const stateSerialized = State.SerializeState();
-		localStorage.setItem(State.PrefixForCurrentState + "state", stateSerialized);
-	}
+	// window.onunload = function() {
+	// 	const stateSerialized = State.SerializeState();
+	// 	localStorage.setItem(State.PrefixForCurrentState + "state", stateSerialized);
+	// }
+
+
+	UI.SetupOptions();
+	UI.SetupDefaultSelectedOptions();
 

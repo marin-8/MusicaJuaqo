@@ -63,7 +63,7 @@ class State
 
     static SaveStateAsToLocalStorage ()
 	{
-        let nameForSave = prompt("Introduce un nombre para el guardado.\n\n(Máximo 40 caracteres).\n(Los caracteres adicionales serán ignorados).\n");
+        let nameForSave = prompt("Introduce un nombre para el guardado.\n\n(Máximo 42 caracteres).\n(Los caracteres adicionales serán ignorados).\n");
 
         if (nameForSave === null)
 		{
@@ -78,7 +78,7 @@ class State
             return;
         }
 
-        nameForSave = nameForSave.substring(0, 40);
+        nameForSave = nameForSave.substring(0, 42);
         const nameForLocalStorage = this.PrefixForUserSavedStates + nameForSave;
 
         let overwrite = false;

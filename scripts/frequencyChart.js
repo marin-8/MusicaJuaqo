@@ -3,38 +3,31 @@ class FrequencyChart
 {
 	static #X;
 
-	static Setup (minFrq, maxFrq)
+	static Setup ()
 	{
-		var trace1 =
+		var trace =
 		{
             name: "x",
             x: [0],
             y: [null],
-            mode: 'line'
+            mode: 'markers',
+			marker: {
+			  color: 'rgb(0, 128, 255)',
+			  size: 6
+			}
         };
     
-        var trace2 =
-		{
-            name: "frequency",
-            x: [0],
-            y: [null],
-            yaxis: 'y2',
-            mode: 'line'
-        };
-    
-        var traces = [trace1, trace2];
+        var traces = [trace];
 
         var layout =
 		{
+			xaxis:
+			{
+                range: [ 0, 400 ]
+            },
             yaxis:
 			{
                 range: [ 0.0, 1.0 ]
-            },
-            yaxis2:
-			{
-                range: [ minFrq, maxFrq ],
-                side: 'right',
-                overlaying: 'y'
             },
             margin:
 			{
@@ -67,26 +60,26 @@ class FrequencyChart
             config);
 	}
 
-	static ExtendTraces (x, frequency)
+	static ExtendTraces (x)
 	{
         Plotly.extendTraces(
             UI.Chart,
             {
-                x: [[this.cnt], [this.cnt]],
-                y: [[x], [frequency]]
+				x: [[this.cnt]],
+                y: [[x]]
             },
-            [0, 1]);
+            [0]);
 
         this.cnt++;
 
-        if (this.cnt > 25)
+        if (this.cnt > 400)
 		{
             Plotly.relayout(
                 UI.Chart,
                 {
                     xaxis:
 					{
-                        range: [this.cnt-25, this.cnt]
+                        range: [this.cnt-400, this.cnt]
                     }
                 });
         }
