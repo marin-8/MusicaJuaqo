@@ -65,6 +65,9 @@
                 <button onclick="State.SaveStateToFile()" style="background-color: Gold; height: auto;">Exportar</button>
                 <button id="ui_loadExternalStorage_button" style="background-color: HotPink; height: auto;">Cargar</button>
                 <input type="file" id="ui_loadExternalStorage_input" style="display:none; height: auto;"/>
+
+				<br><br>
+				<pre>* Ms = Milisegundos</pre>
 				
                 <br><br><br>
                 <pre>[Player]:</pre>
@@ -75,88 +78,85 @@
             <div class="column" style="margin-right:24px; height: auto;">
 
 				<br>
-				<pre>Cuando Math.trunc(x*10)/10 ==</pre>
-				<br>
-
-				<br>
-				<pre>0.0 reproducir </pre>
-				<select id="ui_octave_0" style="height: auto;"></select>
-				<select id="ui_note_0" style="height: auto;"></select>
-				<pre> </pre><pre id="ui_frequency_0">---,----</pre><pre> Hz durante </pre>
-                <input id="ui_ms_0" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
-				<pre> ms (100 - 1000)</pre>
-
-				<br>
-				<pre>0.1 reproducir </pre>
-				<select id="ui_octave_1" style="height: auto;"></select>
-				<select id="ui_note_1" style="height: auto;"></select>
-				<pre> </pre><pre id="ui_frequency_1">---,----</pre><pre> Hz durante </pre>
-                <input id="ui_ms_1" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
-				<pre> ms (100 - 1000)</pre>
-
-				<br>
-				<pre>0.2 reproducir </pre>
-				<select id="ui_octave_2" style="height: auto;"></select>
-				<select id="ui_note_2" style="height: auto;"></select>
-				<pre> </pre><pre id="ui_frequency_2">---,----</pre><pre> Hz durante </pre>
-                <input id="ui_ms_2" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
-				<pre> ms (100 - 1000)</pre>
-				
-				<br>
-				<pre>0.3 reproducir </pre>
-				<select id="ui_octave_3" style="height: auto;"></select>
-				<select id="ui_note_3" style="height: auto;"></select>
-				<pre> </pre><pre id="ui_frequency_3">---,----</pre><pre> Hz durante </pre>
-                <input id="ui_ms_3" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
-				<pre> ms (100 - 1000)</pre>
-				
-				<br>
-				<pre>0.4 reproducir </pre>
-				<select id="ui_octave_4" style="height: auto;"></select>
-				<select id="ui_note_4" style="height: auto;"></select>
-				<pre> </pre><pre id="ui_frequency_4">---,----</pre><pre> Hz durante </pre>
-                <input id="ui_ms_4" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
-				<pre> ms (100 - 1000)</pre>
-
-				<br>
-				<pre>0.5 reproducir </pre>
-				<select id="ui_octave_5" style="height: auto;"></select>
-				<select id="ui_note_5" style="height: auto;"></select>
-				<pre> </pre><pre id="ui_frequency_5">---,----</pre><pre> Hz durante </pre>
-                <input id="ui_ms_5" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
-				<pre> ms (100 - 1000)</pre>
-
-				<br>
-				<pre>0.6 reproducir </pre>
-				<select id="ui_octave_6" style="height: auto;"></select>
-				<select id="ui_note_6" style="height: auto;"></select>
-				<pre> </pre><pre id="ui_frequency_6">---,----</pre><pre> Hz durante </pre>
-                <input id="ui_ms_6" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
-				<pre> ms (100 - 1000)</pre>
-
-				<br>
-				<pre>0.7 reproducir </pre>
-				<select id="ui_octave_7" style="height: auto;"></select>
-				<select id="ui_note_7" style="height: auto;"></select>
-				<pre> </pre><pre id="ui_frequency_7">---,----</pre><pre> Hz durante </pre>
-                <input id="ui_ms_7" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
-				<pre> ms (100 - 1000)</pre>
-				
-				<br>
-				<pre>0.8 reproducir </pre>
-				<select id="ui_octave_8" style="height: auto;"></select>
-				<select id="ui_note_8" style="height: auto;"></select>
-				<pre> </pre><pre id="ui_frequency_8">---,----</pre><pre> Hz durante </pre>
-                <input id="ui_ms_8" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
-				<pre> ms (100 - 1000)</pre>
-				
-				<br>
-				<pre>0.9 reproducir </pre>
-				<select id="ui_octave_9" style="height: auto;"></select>
-				<select id="ui_note_9" style="height: auto;"></select>
-				<pre> </pre><pre id="ui_frequency_9">---,----</pre><pre> Hz durante </pre>
-                <input id="ui_ms_9" type="number" min="100" max="1000" value="250" step="1" style="height: auto;">
-				<pre> ms (100 - 1000)</pre>
+				<table>
+					<tr>
+						<th>x</th>
+						<th>Octava</th>
+						<th>Nota</th>
+						<th>Hz</th>
+						<th>Ms *</th>
+					</tr>
+					<tr>
+						<td>0.0</td>
+						<td> <select id="ui_octave_0" onchange="UI.OnOctaveOrNoteChange(0)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_0" onchange="UI.OnOctaveOrNoteChange(0)" style="height: auto;"></select> </td>
+						<td> <pre id="ui_frequency_0">---,----</pre> </td>
+						<td> <input id="ui_ms_0" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+					</tr>
+					<tr>
+						<td>0.1</td>
+						<td> <select id="ui_octave_1" onchange="UI.OnOctaveOrNoteChange(1)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_1" onchange="UI.OnOctaveOrNoteChange(1)" style="height: auto;"></select> </td>
+						<td> <pre id="ui_frequency_1">---,----</pre> </td>
+						<td> <input id="ui_ms_1" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+					</tr>
+					<tr>
+						<td>0.2</td>
+						<td> <select id="ui_octave_2" onchange="UI.OnOctaveOrNoteChange(2)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_2" onchange="UI.OnOctaveOrNoteChange(2)" style="height: auto;"></select> </td>
+						<td> <pre id="ui_frequency_2">---,----</pre> </td>
+						<td> <input id="ui_ms_2" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+					</tr>
+					<tr>
+						<td>0.3</td>
+						<td> <select id="ui_octave_3" onchange="UI.OnOctaveOrNoteChange(3)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_3" onchange="UI.OnOctaveOrNoteChange(3)" style="height: auto;"></select> </td>
+						<td> <pre id="ui_frequency_3">---,----</pre> </td>
+						<td> <input id="ui_ms_3" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+					</tr>
+					<tr>
+						<td>0.4</td>
+						<td> <select id="ui_octave_4" onchange="UI.OnOctaveOrNoteChange(4)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_4" onchange="UI.OnOctaveOrNoteChange(4)" style="height: auto;"></select> </td>
+						<td> <pre id="ui_frequency_4">---,----</pre> </td>
+						<td> <input id="ui_ms_4" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+					</tr>
+					<tr>
+						<td>0.5</td>
+						<td> <select id="ui_octave_5" onchange="UI.OnOctaveOrNoteChange(5)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_5" onchange="UI.OnOctaveOrNoteChange(5)" style="height: auto;"></select> </td>
+						<td> <pre id="ui_frequency_5">---,----</pre> </td>
+						<td> <input id="ui_ms_5" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+					</tr>
+					<tr>
+						<td>0.6</td>
+						<td> <select id="ui_octave_6" onchange="UI.OnOctaveOrNoteChange(6)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_6" onchange="UI.OnOctaveOrNoteChange(6)" style="height: auto;"></select> </td>
+						<td> <pre id="ui_frequency_6">---,----</pre> </td>
+						<td> <input id="ui_ms_6" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+					</tr>
+					<tr>
+						<td>0.7</td>
+						<td> <select id="ui_octave_7" onchange="UI.OnOctaveOrNoteChange(7)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_7" onchange="UI.OnOctaveOrNoteChange(7)" style="height: auto;"></select> </td>
+						<td> <pre id="ui_frequency_7">---,----</pre> </td>
+						<td> <input id="ui_ms_7" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+					</tr>
+					<tr>
+						<td>0.8</td>
+						<td> <select id="ui_octave_8" onchange="UI.OnOctaveOrNoteChange(8)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_8" onchange="UI.OnOctaveOrNoteChange(8)" style="height: auto;"></select> </td>
+						<td> <pre id="ui_frequency_8">---,----</pre> </td>
+						<td> <input id="ui_ms_8" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+					</tr>
+					<tr>
+						<td>0.9</td>
+						<td> <select id="ui_octave_9" onchange="UI.OnOctaveOrNoteChange(9)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_9" onchange="UI.OnOctaveOrNoteChange(9)" style="height: auto;"></select> </td>
+						<td> <pre id="ui_frequency_9">---,----</pre> </td>
+						<td> <input id="ui_ms_9" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+					</tr>
+				</table>
 
             </div>
 

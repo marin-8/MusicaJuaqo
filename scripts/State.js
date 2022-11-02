@@ -10,13 +10,13 @@ class State
 		{
             R: UI.R.value,
             X0: UI.X0.value,
-            MinHz: UI.MinHz.value,
-            MaxHz: UI.MaxHz.value,
-            MinBPM: UI.MinBPM.value,
-            MaxBPM: UI.MaxBPM.value,
             WaveType: UI.WaveType.value,
-            HzPerXMap: UI.HzSliders.map(s => s.value),
-            BPMPerXMap: UI.BPMSliders.map(s => s.value),
+			OutputConfig: UI.OutputConfig.map(oc => (
+			{
+				Octave: oc.Octave.value,
+				Note: oc.Note.value,
+				Ms: oc.Ms.value,
+			}))
         };
 
         return JSON.stringify(state);
@@ -40,18 +40,13 @@ class State
 		{
             UI.R.value = fileContentsDeserialized.R;
             UI.X0.value = fileContentsDeserialized.X0;
-            UI.MinHz.value = fileContentsDeserialized.MinHz;
-            UI.MaxHz.value = fileContentsDeserialized.MaxHz;
-            UI.MinBPM.value = fileContentsDeserialized.MinBPM;
-            UI.MaxBPM.value = fileContentsDeserialized.MaxBPM;
             UI.WaveType.value = fileContentsDeserialized.WaveType;
-            UI.HzSliders.forEach(function (item, index)
+            UI.OutputConfig.forEach(function (item, index)
 			{
-                item.value = fileContentsDeserialized.HzPerXMap[index];
-            });
-            UI.BPMSliders.forEach(function (item, index)
-			{
-                item.value = fileContentsDeserialized.BPMPerXMap[index];
+				const fcdOc = fileContentsDeserialized.OutputConfig[index];
+                item.Octave.value = fcdOc.Octave;
+                item.Note.value = fcdOc.Note;
+                item.Ms.value = fcdOc.Ms;
             });
         }
 		catch(e)

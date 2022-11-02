@@ -38,3 +38,21 @@ input[type=range][orient=vertical] {
     display: table;
     clear: both;
 }
+
+table {
+	border-collapse: collapse;
+}
+
+th {
+	border: 2px solid white;
+	color: white;
+	text-align: center;
+	padding: 4px 10px;
+}
+
+td {
+	border: 2px solid white;
+	color: white;
+	text-align: center;
+	padding: 1px 10px;
+}

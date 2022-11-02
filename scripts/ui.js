@@ -82,16 +82,71 @@ class UI
 
 	// ================================================================ //
 
+	static SetupOptions ()
+	{
+		const octaveOptions = this.#GenerateOctaveOptions();
+		const noteOptions = this.#GenerateNoteOptions();
+
+		for (let x = 0; x < 10; x++)
+		{
+			this.#AppendChildren(UI.OutputConfig[x].Octave, octaveOptions);
+			this.#AppendChildren(UI.OutputConfig[x].Note, noteOptions);
+		}
+	}
+
+	static SetupDefaultSelectedOptions ()
+	{
+		let currentOctave = 3;
+		let currentNote = 5;
+
+		for (let x = 0; x < 10; x++)
+		{
+			UI.OutputConfig[x].Octave.value = currentOctave.toString();
+			UI.OutputConfig[x].Note.value = currentNote.toString();
+
+			currentNote++;
+
+			if (currentNote > 11)
+			{
+				currentNote = 0;
+				currentOctave++;
+			}
+		}
+	}
+
+	static SetupFrecuencyViews ()
+	{
+		for (let x = 0; x < 10; x++)
+		{
+			this.OnOctaveOrNoteChange(x);
+		}
+	}
+
+	// ================================================================ //
+
+	static OnOctaveOrNoteChange (xRange)
+	{
+		const octave = parseInt(UI.OutputConfig[xRange].Octave.value);
+		const note = parseInt(UI.OutputConfig[xRange].Note.value);
+
+		const frecuencyRaw = AlgorithmPlayer.FrequencyMap[octave][note];
+		const frecuencyRounded = Helpers.Round(frecuencyRaw,4);
+		const frecuencyFormated = frecuencyRounded.toFixed(4).replace('.',',');
+
+		UI.OutputConfig[xRange].FrequencyView.innerHTML = frecuencyFormated;
+	}
+
+	// ================================================================ //
+
 	static #GenerateOctaveOptions ()
 	{
 		const octaveOptions = [];
 
 		for (let o = 0; o < 8; o++)
 		{
-			var octaveNumberAsString = o.toString();
 			var newOctaveOption = document.createElement('option');
-			newOctaveOption.value = octaveNumberAsString;
-			newOctaveOption.innerHTML = "Octava " + octaveNumberAsString;
+			newOctaveOption.value = o.toString();
+			newOctaveOption.innerHTML = (o+1).toString();
 			octaveOptions.push(newOctaveOption);
 		}
 
@@ -131,38 +186,6 @@ class UI
 		{
 			const clonedOption = children[c].cloneNode(true);
 			parent.appendChild(clonedOption);
-		}
-	}
-
-	static SetupOptions ()
-	{
-		const octaveOptions = this.#GenerateOctaveOptions();
-		const noteOptions = this.#GenerateNoteOptions();
-
-		for (let x = 0; x < 10; x++)
-		{
-			this.#AppendChildren(UI.OutputConfig[x].Octave, octaveOptions);
-			this.#AppendChildren(UI.OutputConfig[x].Note, noteOptions);
-		}
-	}
-
-	static SetupDefaultSelectedOptions ()
-	{
-		let currentOctave = 3;
-		let currentNote = 5;
-
-		for (let x = 0; x < 10; x++)
-		{
-			UI.OutputConfig[x].Octave.value = currentOctave.toString();
-			UI.OutputConfig[x].Note.value = currentNote.toString();
-
-			currentNote++;
-
-			if (currentNote > 11)
-			{
-				currentNote = 0;
-				currentOctave++;
-			}
 		}
 	}
 }
