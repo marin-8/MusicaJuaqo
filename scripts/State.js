@@ -1,8 +1,10 @@
 
 class State
 {
-    static PrefixForCurrentState = "==(!@#?]==";
-    static PrefixForUserSavedStates = "==[¿#@¡)==";
+	static #Version = "02";
+
+    static PrefixForCurrentState = "==(!@" + this.#Version + "#?]==";
+    static PrefixForUserSavedStates = "==[¿#" + this.#Version + "@¡)==";
 
 	static SerializeState ()
 	{
