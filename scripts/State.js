@@ -1,7 +1,7 @@
 
 class State
 {
-	static #Version = "02";
+	static #Version = "04";
 
     static PrefixForCurrentState = "==(!@" + this.#Version + "#?]==";
     static PrefixForUserSavedStates = "==[¿#" + this.#Version + "@¡)==";
@@ -13,6 +13,7 @@ class State
             R: UI.R.value,
             X0: UI.X0.value,
             WaveType: UI.WaveType.value,
+            VisiblePoints: UI.VisiblePoints.value,
 			OutputConfig: UI.OutputConfig.map(oc => (
 			{
 				Octave: oc.Octave.value,
@@ -43,6 +44,8 @@ class State
             UI.R.value = fileContentsDeserialized.R;
             UI.X0.value = fileContentsDeserialized.X0;
             UI.WaveType.value = fileContentsDeserialized.WaveType;
+            if (fileContentsDeserialized.VisiblePoints)
+				UI.VisiblePoints.value = fileContentsDeserialized.VisiblePoints;
             UI.OutputConfig.forEach(function (item, index)
 			{
 				const fcdOc = fileContentsDeserialized.OutputConfig[index];

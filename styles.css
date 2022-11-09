@@ -2,7 +2,6 @@
 * {
     font-family: 'Consolas';
     box-sizing: border-box;
-    height: 100%;
 }
 
 body {
@@ -12,21 +11,6 @@ body {
 pre {
     color: white;
     display: inline;
-}
-
-input[type=range][orient=vertical] {
-    -webkit-appearance: slider-vertical;
-    width: 8px;
-    height: 280px;
-    padding: 0 5px;
-}
-
-.hzSlidersColor {
-	accent-color: rgb(0,128,255);
-}
-
-.bpmSlidersColor {
-	accent-color: rgb(0,192,0)
 }
 
 .column {
@@ -55,4 +39,22 @@ td {
 	color: white;
 	text-align: center;
 	padding: 1px 10px;
+}
+
+.grid {
+	background-color: white;
+	display: grid;
+	gap: 1em;
+	grid-template-rows: minmax(0, 1fr);
+	grid-template-columns: minmax(0, 3fr);
+	grid-template-areas: "c";
+	width: calc(100vw - 45px); /* not necessary, but just to be explicit */
+	height: calc(100vh - 350px);
+	margin: 0;
+	padding: 0;
+}
+
+.chart-wrap {
+	margin: 0;
+	padding: 0;
 }

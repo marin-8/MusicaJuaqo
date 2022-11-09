@@ -2,18 +2,42 @@
 class Control
 {
 	static #Playing = false;
+	static #Stopped = true;
 
-	static PlayStop ()
+	static PlayPause ()
 	{
-		if (this.#Playing)
+		if (!this.#Playing)
 		{
-			// Stop
-            this.#Playing = !this.#Playing;
-            UI.PlayStop.innerHTML = "Play";
+            if (this.#Stopped)
+			{
+				this.#Play();
+			}
+			else
+			{
+				this.#Resume();
+			}
+			
+			UI.PlayPause.innerHTML = "Pause";
         }
 		else
 		{
-			this.#Play();
+			this.#Pause();
+
+            UI.PlayPause.innerHTML = "Play";
+		}
+	}
+
+	static Reset ()
+	{
+		if (!this.#Stopped)
+		{
+			if (!this.#Playing)
+				FrequencyChart.Reset();
+
+			this.#Playing = false;
+			this.#Stopped = true;
+
+			UI.PlayPause.innerHTML = "Play";
 		}
 	}
 
@@ -24,6 +48,8 @@ class Control
 
 		const waveType = UI.WaveType.value;
 
+		const maxWidth = parseFloat(UI.VisiblePoints.value)
+
 		AlgorithmPlayer.Setup
 		(
 			r,
@@ -31,17 +57,34 @@ class Control
 			waveType
 		);
 
-		FrequencyChart.Setup();
+		FrequencyChart.Setup(maxWidth);
 
-		this.#Playing = !this.#Playing;
+		this.#Playing = true;
+		this.#Stopped = false;
 
 		this.#PeriodicCall();
+	}
 
-		UI.PlayStop.innerHTML = "Stop";
+	static #Resume ()
+	{
+		this.#Playing = true;
+
+		this.#PeriodicCall();
+	}
+
+	static #Pause ()
+	{
+		this.#Playing = false;
 	}
 
 	static #PeriodicCall ()
 	{
+		if (this.#Stopped)
+			FrequencyChart.Reset();
+
+		if (!this.#Playing)
+			return;
+
 		const xAndTimeout = AlgorithmPlayer.Method();
 
         FrequencyChart.ExtendTraces(xAndTimeout.x);

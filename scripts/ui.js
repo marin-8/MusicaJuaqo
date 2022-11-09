@@ -6,6 +6,8 @@ class UI
 
     static WaveType = document.getElementById("ui_waveType");
 
+    static VisiblePoints = document.getElementById("ui_visiblePoints");
+
     static SaveLocalStorage = document.getElementById("ui_saveLocalStorage");
     static DeleteLocalStorage = document.getElementById("ui_deleteLocalStorage");
     static LocalStorageSaves = document.getElementById("ui_localStorageSaves");
@@ -13,7 +15,8 @@ class UI
     static LoadExternalStorage_button = document.getElementById("ui_loadExternalStorage_button");
     static LoadExternalStorage_input = document.getElementById("ui_loadExternalStorage_input");
 	
-    static PlayStop = document.getElementById("ui_playStop");
+    static PlayPause = document.getElementById("ui_playPause");
+    // static Reset = document.getElementById("ui_Reset"); // No se usa
 
 	static OutputConfig = [
 		{
@@ -79,6 +82,7 @@ class UI
 	];
 
     static Chart = document.getElementById("ui_chart");
+    static ChartContext = this.Chart.getContext('2d');
 
 	// ================================================================ //
 

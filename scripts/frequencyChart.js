@@ -1,87 +1,92 @@
 
 class FrequencyChart
 {
-	static #X;
+	static #MaxWidth;
 
-	static Setup ()
+	static #CNT;
+
+	static #Chart;
+
+	static Setup (maxWidth)
 	{
-		var trace =
-		{
-            name: "x",
-            x: [0],
-            y: [null],
-            mode: 'markers',
-			marker: {
-			  color: 'rgb(0, 128, 255)',
-			  size: 6
-			}
-        };
-    
-        var traces = [trace];
+		this.#MaxWidth = maxWidth;
 
-        var layout =
-		{
-			xaxis:
-			{
-                range: [ 0, 400 ]
-            },
-            yaxis:
-			{
-                range: [ 0.0, 1.0 ]
-            },
-            margin:
-			{
-                l: 30,
-                r: 40,
-                b: 24,
-                t: 20,
-                pad: 0
-            },
-            hovermode: 'closest',
-            legend:
-			{
-                x: 1.05,
-                y: 0.5
-            }
-        };
-
-        var config =
-		{
-            responsive: true,
-            displayModeBar: false
-        };
-
-        this.cnt = 0;
-
-        Plotly.newPlot(
-            UI.Chart,
-            traces,
-            layout,
-            config);
+        this.#CNT = 0;
+		
+		this.#Chart =
+			new Chart
+			(
+				UI.ChartContext,
+				{
+					type: 'line',
+					data: {
+						labels: [...Array(this.#MaxWidth).keys()].map(i => i + 1),
+						datasets: [
+						{
+							data: [],
+							pointBackgroundColor: 'rgb(0, 128, 255)',
+							pointRadius: 3,
+							fill: false,
+							showLine: false
+						}]
+					},
+					options:
+					{
+						responsive: true,
+						maintainAspectRatio: false,
+						scales:
+						{
+							x:
+							{
+								min: 1,
+								max: this.#MaxWidth,
+								display: false
+							},
+							y:
+							{
+								min: 0,
+								max: 1,
+								beginAtZero: true,
+							}
+						},
+						animation: {
+							duration: 0
+						},
+						spanGaps: true,
+						plugins:
+						{
+							legend:
+							{
+								display: false
+							}
+						}
+					}
+				}
+			);
 	}
 
 	static ExtendTraces (x)
 	{
-        Plotly.extendTraces(
-            UI.Chart,
-            {
-				x: [[this.cnt]],
-                y: [[x]]
-            },
-            [0]);
+		FrequencyChart.#CNT++;
 
-        this.cnt++;
+		this.#Chart.data.datasets[0].data.push(x);
 
-        if (this.cnt > 400)
+		if (FrequencyChart.#CNT > this.#MaxWidth)
 		{
-            Plotly.relayout(
-                UI.Chart,
-                {
-                    xaxis:
-					{
-                        range: [this.cnt-400, this.cnt]
-                    }
-                });
-        }
+			this.#Chart.data.datasets[0].data.shift();
+
+			this.#Chart.data.labels.push(FrequencyChart.#CNT);
+			this.#Chart.data.labels.shift();
+
+			this.#Chart.options.scales.x.min = FrequencyChart.#CNT-this.#MaxWidth+1;
+			this.#Chart.options.scales.x.max = FrequencyChart.#CNT;
+		}
+
+		this.#Chart.update();
     }
+
+	static Reset ()
+	{
+		this.#Chart.destroy();
+	}
 }

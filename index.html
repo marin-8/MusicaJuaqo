@@ -12,7 +12,7 @@
         <title>Ecuación logística</title>
 
         <script src="scripts/libs/Helpers.js" defer></script>
-        <script src="scripts/libs/Plotly.js" defer></script>
+        <script src="scripts/libs/Chart.js" defer></script>
         <script src="scripts/libs/simpleTones.js" defer></script>
 
         <script src="scripts/AlgorithmPlayer.js" defer></script>
@@ -27,55 +27,57 @@
 
     </head>
 	
-    <body style="margin-left:24px" class="hundred">
+    <body style="margin-left:24px">
 
-        <div class="row" style="height: auto;">
+        <div class="row">
 
-            <div class="column" style="margin-right:24px; height: auto;">
+            <div class="column" style="margin-right:24px;">
 
                 <br>
                 <pre>r  (0     - 4    ) (0.001):</pre>
-                <input id="ui_r" type="number" min="0" max="4" step="0.001" value="3.832" style="height: auto;">
+                <input id="ui_r" type="number" min="0" max="4" step="0.001" value="3.828">
 
                 <br>
                 <pre>x0 (0.001 - 0.999) (0.001):</pre>
-                <input id="ui_x0" type="number" min="0" max="1" step="0.001" value="0.967" style="height: auto;">
+                <input id="ui_x0" type="number" min="0" max="1" step="0.001" value="0.55">
 
                 <br><br>
                 <pre>Tipo onda:</pre>
-                <select id="ui_waveType" style="height: auto;">
+                <select id="ui_waveType">
                     <option value="sine">Sine</option>
                     <option value="square">Square</option>
                     <option value="sawtooth">Sawtooth</option>
                     <option value="triangle">Triangle</option>
                 </select>
 
+				<br><br>
+                <pre>Puntos visibles (10 - 1000) (1):</pre>
+                <input id="ui_visiblePoints" type="number" min="10" max="1000" step="1" value="400">
+
                 <br><br>
                 <pre>[Almacenamiento local]:</pre>
-                <button id="ui_saveLocalStorage" onclick="State.SaveStateAsToLocalStorage()" style="background-color: DeepSkyBlue; height: auto;">Guardar</button>
-                <button id="ui_deleteLocalStorage" onclick="State.DeleteStateFromLocalStorage()" style="background-color: LightCoral; height: auto;">Borrar</button>
+                <button id="ui_saveLocalStorage" onclick="State.SaveStateAsToLocalStorage()" style="background-color: DeepSkyBlue;">Guardar</button>
+                <button id="ui_deleteLocalStorage" onclick="State.DeleteStateFromLocalStorage()" style="background-color: LightCoral;">Borrar</button>
 
                 <br>
-                <select id="ui_localStorageSaves" onchange="State.LoadStateFromLocalStorage()" style="width: 347px; margin-top: 5px; height: auto;">
+                <select id="ui_localStorageSaves" onchange="State.LoadStateFromLocalStorage()" style="width: 347px; margin-top: 5px;">
                     <option value=""></option>
                 </select>
 				
                 <br><br>
                 <pre>[Almacenamiento externo]:</pre>
-                <button onclick="State.SaveStateToFile()" style="background-color: Gold; height: auto;">Exportar</button>
-                <button id="ui_loadExternalStorage_button" style="background-color: HotPink; height: auto;">Cargar</button>
-                <input type="file" id="ui_loadExternalStorage_input" style="display:none; height: auto;"/>
-
-				<br><br>
-				<pre>* Ms = Milisegundos (100-1000)</pre>
+                <button onclick="State.SaveStateToFile()" style="background-color: Gold;">Exportar</button>
+                <button id="ui_loadExternalStorage_button" style="background-color: HotPink;">Cargar</button>
+                <input type="file" id="ui_loadExternalStorage_input" style="display:none;"/>
 				
                 <br><br><br>
                 <pre>[Player]:</pre>
-                <button id="ui_playStop" onclick="Control.PlayStop()" style="background-color: LimeGreen; height: auto;">Play</button>
+                <button id="ui_playPause" onclick="Control.PlayPause()" style="background-color: LimeGreen;">Play</button>
+                <button id="ui_Reset" onclick="Control.Reset()" style="background-color: red; color: white;">Reset</button>
 
             </div>			
 
-            <div class="column" style="margin-right:24px; height: auto;">
+            <div class="column" style="margin-right:24px;">
 
 				<br>
 				<table>
@@ -84,77 +86,77 @@
 						<th>Octava</th>
 						<th>Nota</th>
 						<th>Hz</th>
-						<th>Ms *</th>
+						<th>Ms</th>
 					</tr>
 					<tr>
 						<td>0.0</td>
-						<td> <select id="ui_octave_0" onchange="UI.OnOctaveOrNoteChange(0)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
-						<td> <select id="ui_note_0" onchange="UI.OnOctaveOrNoteChange(0)" style="height: auto;"></select> </td>
+						<td> <select id="ui_octave_0" onchange="UI.OnOctaveOrNoteChange(0)" style="width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_0" onchange="UI.OnOctaveOrNoteChange(0)"></select> </td>
 						<td> <pre id="ui_frequency_0">---,----</pre> </td>
-						<td> <input id="ui_ms_0" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+						<td> <input id="ui_ms_0" type="number" min="100" max="1000" value="250" step="1"> </td>
 					</tr>
 					<tr>
 						<td>0.1</td>
-						<td> <select id="ui_octave_1" onchange="UI.OnOctaveOrNoteChange(1)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
-						<td> <select id="ui_note_1" onchange="UI.OnOctaveOrNoteChange(1)" style="height: auto;"></select> </td>
+						<td> <select id="ui_octave_1" onchange="UI.OnOctaveOrNoteChange(1)" style="width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_1" onchange="UI.OnOctaveOrNoteChange(1)"></select> </td>
 						<td> <pre id="ui_frequency_1">---,----</pre> </td>
-						<td> <input id="ui_ms_1" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+						<td> <input id="ui_ms_1" type="number" min="100" max="1000" value="250" step="1"> </td>
 					</tr>
 					<tr>
 						<td>0.2</td>
-						<td> <select id="ui_octave_2" onchange="UI.OnOctaveOrNoteChange(2)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
-						<td> <select id="ui_note_2" onchange="UI.OnOctaveOrNoteChange(2)" style="height: auto;"></select> </td>
+						<td> <select id="ui_octave_2" onchange="UI.OnOctaveOrNoteChange(2)" style="width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_2" onchange="UI.OnOctaveOrNoteChange(2)"></select> </td>
 						<td> <pre id="ui_frequency_2">---,----</pre> </td>
-						<td> <input id="ui_ms_2" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+						<td> <input id="ui_ms_2" type="number" min="100" max="1000" value="250" step="1"> </td>
 					</tr>
 					<tr>
 						<td>0.3</td>
-						<td> <select id="ui_octave_3" onchange="UI.OnOctaveOrNoteChange(3)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
-						<td> <select id="ui_note_3" onchange="UI.OnOctaveOrNoteChange(3)" style="height: auto;"></select> </td>
+						<td> <select id="ui_octave_3" onchange="UI.OnOctaveOrNoteChange(3)" style="width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_3" onchange="UI.OnOctaveOrNoteChange(3)"></select> </td>
 						<td> <pre id="ui_frequency_3">---,----</pre> </td>
-						<td> <input id="ui_ms_3" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+						<td> <input id="ui_ms_3" type="number" min="100" max="1000" value="250" step="1"> </td>
 					</tr>
 					<tr>
 						<td>0.4</td>
-						<td> <select id="ui_octave_4" onchange="UI.OnOctaveOrNoteChange(4)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
-						<td> <select id="ui_note_4" onchange="UI.OnOctaveOrNoteChange(4)" style="height: auto;"></select> </td>
+						<td> <select id="ui_octave_4" onchange="UI.OnOctaveOrNoteChange(4)" style="width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_4" onchange="UI.OnOctaveOrNoteChange(4)"></select> </td>
 						<td> <pre id="ui_frequency_4">---,----</pre> </td>
-						<td> <input id="ui_ms_4" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+						<td> <input id="ui_ms_4" type="number" min="100" max="1000" value="250" step="1"> </td>
 					</tr>
 					<tr>
 						<td>0.5</td>
-						<td> <select id="ui_octave_5" onchange="UI.OnOctaveOrNoteChange(5)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
-						<td> <select id="ui_note_5" onchange="UI.OnOctaveOrNoteChange(5)" style="height: auto;"></select> </td>
+						<td> <select id="ui_octave_5" onchange="UI.OnOctaveOrNoteChange(5)" style="width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_5" onchange="UI.OnOctaveOrNoteChange(5)"></select> </td>
 						<td> <pre id="ui_frequency_5">---,----</pre> </td>
-						<td> <input id="ui_ms_5" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+						<td> <input id="ui_ms_5" type="number" min="100" max="1000" value="250" step="1"> </td>
 					</tr>
 					<tr>
 						<td>0.6</td>
-						<td> <select id="ui_octave_6" onchange="UI.OnOctaveOrNoteChange(6)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
-						<td> <select id="ui_note_6" onchange="UI.OnOctaveOrNoteChange(6)" style="height: auto;"></select> </td>
+						<td> <select id="ui_octave_6" onchange="UI.OnOctaveOrNoteChange(6)" style="width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_6" onchange="UI.OnOctaveOrNoteChange(6)"></select> </td>
 						<td> <pre id="ui_frequency_6">---,----</pre> </td>
-						<td> <input id="ui_ms_6" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+						<td> <input id="ui_ms_6" type="number" min="100" max="1000" value="250" step="1"> </td>
 					</tr>
 					<tr>
 						<td>0.7</td>
-						<td> <select id="ui_octave_7" onchange="UI.OnOctaveOrNoteChange(7)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
-						<td> <select id="ui_note_7" onchange="UI.OnOctaveOrNoteChange(7)" style="height: auto;"></select> </td>
+						<td> <select id="ui_octave_7" onchange="UI.OnOctaveOrNoteChange(7)" style="width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_7" onchange="UI.OnOctaveOrNoteChange(7)"></select> </td>
 						<td> <pre id="ui_frequency_7">---,----</pre> </td>
-						<td> <input id="ui_ms_7" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+						<td> <input id="ui_ms_7" type="number" min="100" max="1000" value="250" step="1"> </td>
 					</tr>
 					<tr>
 						<td>0.8</td>
-						<td> <select id="ui_octave_8" onchange="UI.OnOctaveOrNoteChange(8)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
-						<td> <select id="ui_note_8" onchange="UI.OnOctaveOrNoteChange(8)" style="height: auto;"></select> </td>
+						<td> <select id="ui_octave_8" onchange="UI.OnOctaveOrNoteChange(8)" style="width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_8" onchange="UI.OnOctaveOrNoteChange(8)"></select> </td>
 						<td> <pre id="ui_frequency_8">---,----</pre> </td>
-						<td> <input id="ui_ms_8" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+						<td> <input id="ui_ms_8" type="number" min="100" max="1000" value="250" step="1"> </td>
 					</tr>
 					<tr>
 						<td>0.9</td>
-						<td> <select id="ui_octave_9" onchange="UI.OnOctaveOrNoteChange(9)" style="height: auto; width: 40px; text-align-last:center;"></select> </td>
-						<td> <select id="ui_note_9" onchange="UI.OnOctaveOrNoteChange(9)" style="height: auto;"></select> </td>
+						<td> <select id="ui_octave_9" onchange="UI.OnOctaveOrNoteChange(9)" style="width: 40px; text-align-last:center;"></select> </td>
+						<td> <select id="ui_note_9" onchange="UI.OnOctaveOrNoteChange(9)"></select> </td>
 						<td> <pre id="ui_frequency_9">---,----</pre> </td>
-						<td> <input id="ui_ms_9" type="number" min="100" max="1000" value="250" step="1" style="height: auto;"> </td>
+						<td> <input id="ui_ms_9" type="number" min="100" max="1000" value="250" step="1"> </td>
 					</tr>
 				</table>
 
@@ -163,7 +165,11 @@
         </div>
 
         <br>
-        <div id='ui_chart' style="height: calc(100% - 390px);"></div>
+		<div class="grid">
+			<figure class="chart-wrap">
+				<canvas id="ui_chart"></canvas>
+			</figure>
+		</div>
         
     </body>
 
